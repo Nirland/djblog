@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load blog_tags %}
+{% load pytils_dt %}
+{% block content %}
+
+    {% for entry in entries.object_list %}
+        {% if not entry.hidden or user.is_authenticated and user.id == entry.user.id %}
+        <div id="entry" class="bordered">
+        <span class="r1"></span><span class="r2"></span><span class="r3"></span>
+        <div id="entrycontent" class="borderedcontent">
+            <h3><a href="{{ entry.get_absolute_url }}">{{ entry.title }}</a></h3>
+            <img src="{{ entry.image.url_400x300 }}" alt="">
+            <div>{% entry_cut %}</div>
+            <p>{{ entry.user }}</p>
+            <p>{{ entry.pub_date|ru_strftime:" %A, %d %B %Y" }}</p>
+
+            {% if user.is_authenticated and user.id == entry.user.id %}
+                <div>
+                    <a href="{% url entry_edit entry.id %}">Редактировать</a>
+                    <a href="{% url entry_delete entry.id %}">Удалить</a>
+                </div>
+            {% endif %}
+        </div>
+        <span class="r3"></span><span class="r2"></span><span class="r1"></span>
+        </div>
+        {% else %}
+            {% if entries.object_list.count < 2 %}
+                <div id="noresults">
+                    <p>Нет записей</p>
+                </div>
+            {% endif %}
+        {% endif %}
+    {% empty %}
+    <div id="noresults">
+        <p>Нет записей</p>
+    </div>
+    {% endfor %}
+    {% include "pagination.html" %}
+{% endblock %}

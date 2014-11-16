@@ -1,0 +1,8 @@
+{% for archive in archives %}
+<div id="archive">
+    <a href="{% url archive_month year=archive.name|date:"Y" month=archive.name|date:"m" %}">
+        <span>{{ archive.name|date:"F Y" }}</span>
+        <span>({{ archive.entry_count }})</span>
+    </a>
+</div>
+{% endfor %}

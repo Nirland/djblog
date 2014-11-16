@@ -1,0 +1,16 @@
+{% load mptt_tags %}
+{% for concept,structure in categories|tree_info %}
+    {% if structure.new_level %}
+        <ul><li>
+    {% else %}
+        </li><li>
+    {% endif %}
+    <a href="{{ concept.get_absolute_url }}">{{ concept.title }}
+    {% if not concept.is_root_node %}
+        &nbsp;({{ concept.num_entries }})
+    {% endif %}
+    </a>
+    {% for level in structure.closed_levels %}
+        </li></ul>
+    {% endfor %}
+{% endfor %}

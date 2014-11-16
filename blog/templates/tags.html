@@ -1,0 +1,5 @@
+{% for tag in tags %}
+    <span class="tag-cloud-{{ tag.weight }}">
+        <a href="{% url tag_view tag.slug %}">{{ tag.name }}</a>
+    </span>
+{% endfor %}

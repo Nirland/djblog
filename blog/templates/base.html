@@ -1,0 +1,86 @@
+{% load blog_tags %}
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    {% block external %}
+        <link rel="stylesheet" href="{{ MEDIA_URL }}css/style.css" type="text/css" />
+    {% endblock %}
+
+    {% block title %}
+        <title>Index</title>
+    {% endblock %}
+</head>
+
+<body>
+
+     <div id="header">
+     <h1>Nirlentar's blog!</h1>
+     {% block header %}
+        {% if user.is_authenticated %}
+            <p>Welcome, {{ user.username }}!&nbsp;<a href="{% url logout %}">Logout</a></p>
+            <a href="{% url entry_add %}">Добавить запись</a>
+        {% else %}
+            <p>Welcome, Anonymous!</p>
+        {% endif %}
+     {% endblock %}
+     </div>
+
+     <div id="container">
+
+     <div id="content">
+     {% block content %}
+     {% endblock %}
+     </div>
+
+     <div id="sidebar">
+     {% block sidebar %}
+         <div id="category" class="bordered">
+         <span class="r1"></span><span class="r2"></span><span class="r3"></span>
+         <div id="categorycontent" class="borderedcontent">
+         <h3>Рубрики</h3>
+         {% categories_tree %}
+         </div>
+         <span class="r3"></span><span class="r2"></span><span class="r1"></span>
+         </div>
+
+         <div id="tags" class="bordered">
+         <span class="r1"></span><span class="r2"></span><span class="r3"></span>
+         <div id="tagscontent" class="borderedcontent">
+         <h3>Облако тэгов</h3>
+         {% tags_cloud %}
+         </div>
+         <span class="r3"></span><span class="r2"></span><span class="r1"></span>
+         </div>
+
+         <div id="archives" class="bordered">
+         <span class="r1"></span><span class="r2"></span><span class="r3"></span>
+         <div id="archivescontent" class="borderedcontent">
+         <h3>Архивы</h3>
+         {% archive_months %}
+         </div>
+         <span class="r3"></span><span class="r2"></span><span class="r1"></span>
+         </div>
+
+         <div id="freshentries" class="bordered">
+         <span class="r1"></span><span class="r2"></span><span class="r3"></span>
+         <div id="freshentriescontent" class="borderedcontent">
+         <h3>Свежее</h3>
+         {% fresh_entries %}
+         </div>
+         <span class="r3"></span><span class="r2"></span><span class="r1"></span>
+         </div>
+
+         </div>
+     {% endblock %}
+    </div>
+
+    </div>
+
+    <div id="footer">
+    {% block footer %}
+        Copyright by Nirlentar
+    {% endblock %}
+    </div>
+</body>
+</html>

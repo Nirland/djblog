@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+<form enctype="multipart/form-data" method="post" action="">
+{% csrf_token %}
+
+{% if form.errors %}
+<div id="entryform-error">
+    <p>ОШИБКИ!</p>
+    <ul>
+    {% for field in form %}
+        {% if field.errors %}
+        <li>{{ field.label_tag }}&nbsp;{{ field.errors|striptags }}</li>
+        {% endif %}
+    {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
+<div id="entryform">
+<table>
+<tr>
+    <td>{{ form.title.label_tag }}</td>
+    <td>{{ form.title }}</td>
+</tr>
+<tr>
+    <td>{{ form.content.label_tag }}</td>
+    <td>{{ form.content }}</td>
+</tr>
+<tr>
+    <td>{{ form.hidden.label_tag }}</td>
+    <td>{{ form.hidden }}</td>
+</tr>
+<tr>
+    <td>{{ form.image.label_tag }}</td>
+    <td>{{ form.image }}</td>
+</tr>
+<tr>
+    <td>{{ form.category.label_tag }}</td>
+    <td>{{ form.category }}</td>
+</tr>
+<tr>
+    <td>{{ form.tags.label_tag }}</td>
+    <td>{{ form.tags }}</td>
+</tr>
+</table>
+
+<p><input type="submit" value="{% if edit %}Изменить{% else %}Добавить{% endif %}" /></p>
+</div>
+</form>
+
+{% endblock %}

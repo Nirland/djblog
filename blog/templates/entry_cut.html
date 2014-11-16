@@ -1,0 +1,8 @@
+{{ content|safe }}
+{% if show_link %}
+    {% if link_text %}
+        <a href="{{ link_url }}#cut">{{ link_text }}</a>
+    {% else %}
+        <a href="{{ link_url }}#cut">Read more</a>
+    {% endif %}
+{% endif %}

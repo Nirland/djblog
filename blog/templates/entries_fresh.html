@@ -1,0 +1,9 @@
+{% for entry in fresh_entries %}
+<div id="fresh_entry">
+    <a href="{{ entry.get_absolute_url }}">{{ entry.title }}</a>
+</div>
+{% empty %}
+<div id="nofresh">
+    <p>Похожие записи отсутствуют</p>
+</div>
+{% endfor %}
